@@ -76,4 +76,85 @@ public class MyHewonDAO extends AbstractSession {
 			sqlSession.close();
 		}
 	}
+	
+	public int insertMapHewon(Map<String, Object> map) {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).insertMapHewon(map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<Map<String, Object>> selectMapHewonList() {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).selectMapHewonList();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public String selectParamHewonId(String name,String phone) {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).selectParamHewonId(name, phone);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<MyHewon> selectSearchHewonList(Map<String, Object> map) {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).selectSearchHewonList(map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+
+	public List<MyHewon> selectNameHewonList(String name) {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).selectNameHewonList(name);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<MyHewon> selectNameDynamicHewonList(Map<String, Object> map) {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).selectNameDynamicHewonList(map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public List<MyHewon> selectDynamicHewonList(Map<String, Object> map) {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).selectDynamicHewonList(map);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public int updateHewon(MyHewon hewon) {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).updateHewon(hewon);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public int updateDynamicHewon(MyHewon hewon) {
+		SqlSession sqlSession=getSqlSessionFactory().openSession(true);
+		try {
+			return sqlSession.getMapper(MyHewonMapper.class).updateDynamicHewon(hewon);
+		} finally {
+			sqlSession.close();
+		}
+	}
 }
