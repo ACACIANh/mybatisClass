@@ -264,7 +264,7 @@
 	<!-- 해결법-2 : 아이디와 이름이 모두 전달될 경우 하나의 where 구문에 2개의 조건이 
 	연결되어 포함되도록 설정 -->
 	
-	<!-- trim : SQL 구문을 추가하거나 제거하는 기능일 제공하는 엘리먼트 -->
+	<!-- trim : SQL 구문을 추가하거나 제거하는 기능을 제공하는 엘리먼트 -->
 	<!-- => if 엘리먼트를 하위 엘리먼트로 사용 -->
 	<!-- prefix 속성 : trim 엘리먼트에 SQL 구문이 존재할 경우 앞부분에 추가될 구문을 속성값으로 설정 -->
 	<!-- prefixOverrides 속성 : trim 엘리먼트에 SQL 구문이 존재할 경우 앞부분에서 제거될 구문을 속성값으로 설정 -->
@@ -352,18 +352,26 @@
 		</set>
 		where hewon_id=#{id}
 	</update>
+	
+	<!-- 아이디 목록을 전달받아 MYHEWON 테이블에 저장된 해당 아이디의 회원정보를 검색하여
+	반환하는 엘리먼트 -->
+	<!-- => 아이디 목록을 전달받지 못한 경우 모든 회원정보 검색하여 반환 -->
+	<select id="selectMultiDynamicHewonList" parameterType="list" resultMap="myHewonResultMap">
+		select * from myhewon
+		<!-- parameterType 속성값을 [list]로 설정하여 List 인스턴스를 전달받은 경우 SQL
+		명령에서는 전달값을 [list] 이름으로 표현 -->
+		<if test="list!=null">
+			where hewon_id in
+			<!-- foreach : List 인스턴스를 전달받아 반복 처리하여 SQL 명령에 포함하기 위한 엘리먼트 -->
+			<!-- collection 속성 : 반복 처리하고자 하는 List 인스턴스의 이름을 속성값으로 설정 -->
+			<!-- item 속성 : List 인스턴스의 요소값을 저장하기 위한 이름을 속성값을 설정 -->
+			<!-- open 속성 : foreach 엘리먼트 앞부분에 추가될 SQL 구문을 속성값으로 설정 -->
+			<!-- close 속성 : foreach 엘리먼트 뒷부분에 추가될 SQL 구문을 속성값으로 설정 -->
+			<!-- separator 속성 : 요소값을 구분하기 위한 구분문자를 속성값으로 설정 -->
+			<foreach collection="list" item="id" open="(" close=")" separator=",">
+				#{id}     
+			</foreach>
+		</if>
+		order by hewon_id
+	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
